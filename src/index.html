@@ -4,16 +4,13 @@
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.css">
-    <!--公共样式-->
-    <link href="css/common.css" rel="stylesheet">
-  </head>
   </head>
   <body>
     <div class="container-fluid">
       <div class="row">
         <!--左边导航栏start-->
         <div class="col-sm-2 sidebar mwtsidebar">
-          <img class="img-responsive blue-logo" src="image/blue-logo.png" alt="">
+          <img class="img-responsive blue-logo" src="assets/images/blue-logo.png" alt="">
           <p class="shop">杭州五鲜谷东</p>
           <h6 class="user-hello">你好：<span class="user">15057187176</span></h6>
           <span class="caret menu-triangle"></span>
@@ -31,9 +28,9 @@
               </ul>
             </li>
             <li class="wrapper">
-              <a class="icon i3">仓库管理</a>
+              <a class="icon i3" ui-sref="storehouse" ng-click="storehouseFn('1')">仓库管理</a>
               <ul class="side-sec-ul flex flex-row">
-                <li><a href="#">采购入库</a></li>
+                <li ><a href="#" ui-sref="storehouse">采购入库</a></li>
                 <li><a href="#">退货入库</a></li>
                 <li><a href="#">库存盘点</a></li>
                 <li><a href="#">报损报益</a></li>
@@ -121,6 +118,9 @@
         <!--右边内容start-->
 
         <div class="col-sm-10 pull-right">
+            <div class="hello-world" ng-controller="expl">
+                {{texts}}
+            </div>
             <!--这里做动态加载区域-->
             <div ui-view>
               <!--店铺概况-->
@@ -191,57 +191,7 @@
     </div>
   </body>
 </html>
-<script type="text/javascript" src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
-
 <!--时间控件start-->
 <link rel="stylesheet" href="https://cdn.bootcss.com/pikaday/1.6.1/css/pikaday.css">
 <script type="text/javascript" src="https://cdn.bootcss.com/pikaday/1.6.1/pikaday.js"></script>
 <!--时间控件end-->
-
-<!--angular-->
-<script type="text/javascript" src="https://cdn.bootcss.com/angular.js/1.6.5/angular.js"></script>
-<script type="text/javascript" src="https://cdn.bootcss.com/angular-ui-router/1.0.3/angular-ui-router.js"></script>
-
-<!--折线图-->
-<!--<script src="./plugins/zrender.js"></script>-->
-<script src="http://echarts.baidu.com/build/dist/echarts.js"></script>
-<!--<script type="text/javascript" src="./plugins/echarts/echarts.js"></script>-->
-
-<!--<script type="text/javascript" src="index.js"></script>-->
-<!--<script type="text/javascript" src="entry.js"></script>-->
-<script type="text/javascript">
-     var app = angular.module('app', ['ui.router']);
-     app.config(function($stateProvider, $urlRouterProvider,$locationProvider){
-     //angulaur 路由！
-         $locationProvider.hashPrefix('');
-         // 默认路由设置
-     //        $urlRouterProvider.otherwise('view.html');
-         $stateProvider
-             .state('view', {
-                 url: 'view.html',
-                 templateUrl:'components/view/view.html',
-                 controller:'viewCtr'
-             })
-             .state('store', {
-                 url: 'store.html',
-                 templateUrl:'components/sell/store.html'
-             })
-             .state('online', {
-                 url: 'online.html',
-                 templateUrl:'components/sell/online.html'
-             })
-             .state('store.selladd', {
-                 url: '/selladd.html',
-                 templateUrl:'components/sell/selladd.html'
-             })
-
-     });
-     app.controller('selladdCtr', function($scope) {
-         // we will store all of our form data in this object
-         $scope.formData = {};
-         // function to process the form
-         $scope.aFn = function() {
-             console.log('awesome!');
-         };
-     });
-</script>
