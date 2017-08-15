@@ -1,0 +1,80 @@
+<div ui-view>
+<!--店内收银-->
+<!--面包屑导航start-->
+<div class="row">
+  <ul class="breadcrumb">
+    <li>
+      <a class="cl333" href="#">销售管理</a>
+    </li>
+    <li>
+      <a href="#">店内收银</a>
+    </li>
+  </ul>
+  <hr>
+</div>
+<!--面包屑导航end-->
+  <!--tab标签页start-->
+  <div class="row show-grid tab-bg">
+    <div class="col-md-12">
+      <ul id="sellTab" class="nav nav-tabs">
+        <li ng-repeat="tab in tabArr" class={{tab.on}} ng-click="toggle()"><a ui-sref="sell1" data-toggle="tab">{{tab.title}}<span>({{tab.num}})</span></a></li>
+        <!--<li class="active"><a ui-sref="sell1" data-toggle="tab">草稿箱<span>(1)</span></a></li>-->
+        <!--<li><a ui-sref="sell2" data-toggle="tab">已退回<span>(2)</span></a></li>-->
+        <!--<li><a ui-sref="sell3" data-toggle="tab">待接收<span>(3)</span></a></li>-->
+        <!--<li><a ui-sref="sell4" data-toggle="tab">待发货<span>(4)</span></a></li>-->
+        <!--<li><a ui-sref="sell5" data-toggle="tab">已发货<span>(5)</span></a></li>-->
+        <!--<li><a ui-sref="sell6" data-toggle="tab">已作废<span>(6)</span></a></li>-->
+      </ul>
+    </div>
+  </div>
+  <div class="sell-form">
+    <gr-tab gr-id="tab1" gr-data="data1" ></gr-tab>
+  </div>
+  <!--form表单start-->
+  <!--<form class="form-inline" role="form">-->
+    <!--<div class="form-group bt15">-->
+      <!--<label for="order-num">订单编号：</label>-->
+      <!--<input type="text" class="form-control" id="order-num" placeholder="">-->
+    <!--</div>-->
+    <!--<div class="form-group bt15">-->
+      <!--<label>订单状态：</label>-->
+      <!--<select class="form-control">-->
+          <!--<option value="0">全部</option>-->
+          <!--<option value="1">未付款</option>-->
+          <!--<option value="2">已付款</option>-->
+      <!--</select>-->
+    <!--</div>-->
+    <!--<div class="form-group bt15">-->
+      <!--<label>客户单位：</label>-->
+      <!--<select class="form-control">-->
+        <!--<option value="0">全部</option>-->
+      <!--</select>-->
+    <!--</div>-->
+    <!--<div class="form-group bt15">-->
+      <!--<label>下单日期：</label>-->
+      <!--<input type="text" id="startdatepicker" class="form-control">-->
+      <!--<label>-</label>-->
+      <!--<input type="text" id="enddatepicker" class="form-control">-->
+      <!--<script>-->
+          <!--var starttime = new Pikaday({ field: document.getElementById('startdatepicker') });-->
+          <!--var endtime = new Pikaday({ field: document.getElementById('enddatepicker') });-->
+      <!--</script>-->
+    <!--</div>-->
+    <!--<div class="form-group bt15">-->
+      <!--<button type="button" class="btn btn-info">查询</button>-->
+      <!--<button type="button" class="btn btn-primary">导出</button>-->
+      <!--<a class="btn btn-primary" ui-sref="store.selladd">添加</a>-->
+    <!--</div>-->
+  <!--</form>-->
+
+  <!--form表单end-->
+  <div id="myTabContent" class="tab-content">
+      <div class="show-grid">
+        <button type="button" class="btn btn-success">提交</button>
+      </div>
+      <table>
+        公用bootstrap table表格，操作功能根据状态来设置
+      </table>
+  </div>
+<!--tab标签页end-->
+</div>

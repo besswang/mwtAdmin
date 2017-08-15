@@ -1,0 +1,38 @@
+<!--销售管理表单模板-->
+  <!--form表单start-->
+  <form class="form-inline" role="form">
+    <div class="form-group bt15">
+      <label for="order-num">订单编号：</label>
+      <input type="text" class="form-control" id="order-num" placeholder="">
+    </div>
+    <div class="form-group bt15">
+      <label>订单状态：</label>
+      <select class="form-control">
+          <option value="0">全部</option>
+          <option value="1">未付款</option>
+          <option value="2">已付款</option>
+      </select>
+    </div>
+    <div class="form-group bt15">
+      <label>客户单位：</label>
+      <select class="form-control">
+        <option value="0">全部</option>
+      </select>
+    </div>
+    <div class="form-group bt15">
+      <label>下单日期：</label>
+      <input type="text" id="startdatepicker" class="form-control">
+      <label>-</label>
+      <input type="text" id="enddatepicker" class="form-control">
+      <script>
+          var starttime = new Pikaday({ field: document.getElementById('startdatepicker') });
+          var endtime = new Pikaday({ field: document.getElementById('enddatepicker') });
+      </script>
+    </div>
+    <div class="form-group bt15">
+      <button type="button" class="btn btn-info">查询</button>
+      <button type="button" class="btn btn-primary">导出</button>
+      <a class="btn btn-primary" ui-sref="store.selladd">添加</a>
+    </div>
+  </form>
+  <!--form表单end-->
