@@ -14,7 +14,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // 设置生成css 的路径和文件名，会自动将对应entry入口js文件中引入的CSS抽出成单独的文件
 // const packCSS = new ExtractTextPlugin('assets/css/[name].[hash:5].css');
-const packCSS = new ExtractTextPlugin('css/[name].css');
+const packCSS = new ExtractTextPlugin('./assets/css/[name].css');
 
 //打包第三方
 const CommonsChunkPlugin = require("webpack/lib/optimize/CommonsChunkPlugin");
@@ -37,7 +37,7 @@ module.exports = {
     devtool: false,
     entry: {
         app:PATHS.app,
-        vendor:['jquery']
+        vendor:['jquery','angular','angular-ui-router']
         // "jquery":[__dirname+'plugins/jquery/jquery.min.js']
         // "bootcss":path( __dirname + "/src/plugins/bootstrap-3.3.7/dist/css/bootstrap.css"),
     },
@@ -50,20 +50,12 @@ module.exports = {
     module: {//在配置文件里添加JSON loader
         rules: [
             {
-                test: /bootstrap\/js\//,
-                loader: 'imports-loader?jQuery=jquery'
-            },
-            {
-                test: /\.jsx?$/,
-                exclude:/node_modules/,
+                test:/\.js$/,
                 loader:'babel-loader',
-                options: {
-                    presets: ["es2015","react"]
-                },
-            },
-            {
-                test: /\.json$/,
-                loader: "json-loader"
+                exclude: path.resolve(__dirname,'node_modules'),
+                query:{
+                    presets:['latest']
+                }
             },
             {
                 test:/\.css$/,
@@ -72,6 +64,7 @@ module.exports = {
                     use: 'css-loader!postcss-loader'
                 }),
             },
+            //打包样式中背景图
             {
                 test: /\.(png|jpg)$/,
                 loader: 'url-loader?limit=8192&name=images/[hash:8].[name].[ext]'
@@ -79,8 +72,12 @@ module.exports = {
                 //name后面是打包后的路径；
                 //loader 后面 limit 字段代表图片打包限制，这个限制并不是说超过了就不能打包，而是指当图片大小小于限制时会自动转成 base64 码引用
                 //上例中大于8192字节的图片正常打包，小于8192字节的图片以 base64 的方式引用。
+            },
+            // 打包 HTML 文件中的图片资源
+            {
+                test: /\.html$/,
+                loader: 'html-withimg-loader'
             }
-
         ]
     },
     plugins: [
@@ -96,7 +93,7 @@ module.exports = {
             title: '麦旺通后台管理',
             filename: "index.html",//复制后存储路径
             template: "./src/index.html", // 模板路径
-            inject: "body",//引入模块的注入位置,取值true/false/body/head,默认是body
+            inject: "head",//引入模块的注入位置,取值true/false/body/head,默认是body
             favicon: "",//指定页面的图标
             minify: {
                 removeComments:true,    //移除HTML中的注释
@@ -112,5 +109,24 @@ module.exports = {
             excludeChunks: "",//排除的模块
             xhtml: false//生成的模板文档中标签是否自动关闭，针对xhtml的语法，会要求标签都关闭，默认false
         }),
+        new HtmlWebpackPlugin({
+            title: '麦旺通后台管理',
+            filename: "./components/view/view.html",//复制后存储路径
+            template: "./src/components/view/view.html", // 模板路径
+            inject: "false",//引入模块的注入位置,取值true/false/body/head,默认是body
+            favicon: "",//指定页面的图标
+            minify: {
+                removeComments:true,    //移除HTML中的注释
+                caseSensitive: false,//是否大小写敏感
+                collapseBooleanAttributes: true,//是否简写boolean格式的属性如：disabled="disabled" 简写为disabled
+                collapseWhitespace: false//是否去除空格,开发环境可以先false，生产环境下改true;
+            },
+            hash:false,//是否生成hash添加在引入文件地址的末尾，类似于我们常用的时间戳
+            cache:true,//是否需要缓存，如果填写true，则文件只有在改变时才会重新生成
+            showErrors: true,//是否将错误信息写在页面里，默认true，出现错误信息则会包裹在一个pre标签内添加到页面上
+            chunks: "",//引入的模块，这里指定的是entry中设置多个js时，在这里指定引入的js，如果不设置则默认全部引入
+            excludeChunks: ['app','vendor','manifest'],//排除的模块
+            xhtml: false//生成的模板文档中标签是否自动关闭，针对xhtml的语法，会要求标签都关闭，默认false
+        })
     ]
 }
